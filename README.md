@@ -1,8 +1,25 @@
-This directory is where you'll write all of your code!
+# Team 9 Software Product Sprint Project
 
-By default it contains a barebones portfolio web app. To run a local server,
-execute this command:
+## About
 
+
+## Website URL
+
+
+## Tools and Technologies
+
+
+
+## Running Server Locally
 ```
 mvn package exec:java
 ```
+
+## Contributors
+- Katherine Yu
+- Daniela Gallegos Dupuis
+- Seokha Kang
+- Mingyi Li
+
+
+
