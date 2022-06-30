@@ -12,12 +12,11 @@
 
       <h1>Happening in &lt;School Name&gt;</h1>
 
-      <form action="/filter" method="POST">
+      <form action="/events" method="GET">
         <table style="width:100%; text-align:left;">
           <tr>
             <th>Event type:</th>
             <th>Subject:</th>
-            <th>Sort by:</th>
           </tr>
           <tr style="vertical-align:top;">
             <td>
@@ -40,31 +39,29 @@
                 <input type="checkbox" id="math" name="math" value="math">
                 <label for="math">Math</label>
             </td>
-            <td>
-              <select>
-                <option value="time">Time</option>
-                <option value="location">Location</option>
-              </select>
-            </td>
           </tr>
         </table>
-        <br>
         <input type="submit" value="Filter"/>
       </form>
       <br>
 
+      Sort by: <br>
+      <input type="radio" name="sort-by" onclick="sort('time');" value="time" checked="checked"/> Time
+      <input type="radio" name="sort-by" onclick="sort('distance')" value="distance" /> Distance
+      <br><br>
+
       <ul id="directory-list">
-        <li>
+        <li onclick="location.href = 'event-info.html'">
           <p id="event-name">Event Name</p>
           <p id="event-descrip">Description</p>
           <p id="event-loc">Location | Date</p>
         </li>
-        <li>
+        <li onclick="location.href = 'event-info.html'">
           <p id="event-name">Event Name</p>
           <p id="event-descrip">Description</p>
           <p id="event-loc">Location | Date</p>
         </li>
-        <li>
+        <li onclick="location.href = 'event-info.html'">
           <p id="event-name">Event Name</p>
           <p id="event-descrip">Description</p>
           <p id="event-loc">Location | Date</p>

@@ -9,24 +9,3 @@
 #greeting-container {
   margin-top: 20px;
 }
-
-#directory-list {
-  padding: 0px;
-  position: relative;
-}
-
-#directory-list li {
-  margin: 15px;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 5px;
-  padding-bottom: 10px;
-  list-style: none;
-  border: 1px solid black;
-  box-shadow: 10px 10px 0px rgba(128, 128, 128, 0.1);
-}
-
-#event-name {
-  font-size: x-large;
-  font-weight: bold;
-}
