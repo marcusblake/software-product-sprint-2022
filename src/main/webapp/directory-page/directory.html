@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Directory</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div id="content">
+      <p align="right"><button onclick="location.href='addevent.html';">Add Event</button></p>
+
+      <h1>Happening in &lt;School Name&gt;</h1>
+
+      <form action="/events" method="GET">
+        <table style="width:100%; text-align:left;">
+          <tr>
+            <th>Event type:</th>
+            <th>Subject:</th>
+          </tr>
+          <tr style="vertical-align:top;">
+            <td>
+              <input type="checkbox" id="social" name="social" value="social">
+              <label for="social">Social</label>
+              <br>
+              <input type="checkbox" id="study" name="study" value="study">
+              <label for="study">Study</label>
+            </td>
+            <td>
+                <input type="checkbox" id="english" name="english" value="english">
+                <label for="english">English</label>
+                <br>
+                <input type="checkbox" id="history" name="history" value="history">
+                <label for="history">History</label>
+                <br>
+                <input type="checkbox" id="science" name="science" value="science">
+                <label for="science">Science</label>
+                <br>
+                <input type="checkbox" id="math" name="math" value="math">
+                <label for="math">Math</label>
+            </td>
+          </tr>
+        </table>
+        <input type="submit" value="Filter"/>
+      </form>
+      <br>
+
+      Sort by: <br>
+      <input type="radio" name="sort-by" onclick="sort('time');" value="time" checked="checked"/> Time
+      <input type="radio" name="sort-by" onclick="sort('distance')" value="distance" /> Distance
+      <br><br>
+
+      <ul id="directory-list">
+        <li onclick="location.href = 'event-info.html'">
+          <p id="event-name">Event Name</p>
+          <p id="event-descrip">Description</p>
+          <p id="event-loc">Location | Date</p>
+        </li>
+        <li onclick="location.href = 'event-info.html'">
+          <p id="event-name">Event Name</p>
+          <p id="event-descrip">Description</p>
+          <p id="event-loc">Location | Date</p>
+        </li>
+        <li onclick="location.href = 'event-info.html'">
+          <p id="event-name">Event Name</p>
+          <p id="event-descrip">Description</p>
+          <p id="event-loc">Location | Date</p>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
