@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Add Event</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlz0NQ1mc6_UU6OHExGKIrpnkJ5q9BqPs"></script>
+    <script src="script.js"></script>
+  </head>
+  <body onload="initMap()">
+    <div id="header">
+      <h1>Add New Event</h1>
+    </div>
+
+    <div id="form">
+        <form action="/new_event.php">
+            <label for="name">Event Name:</label>
+            <input type="text" id="name" name="name"><br>
+            <label for="desc">Description:</label>
+            <textarea id="desc" name="desc"></textarea><br>
+            <label for="loc">Building Name:</label>
+            <input type="text" id="loc" name="loc"><br>
+            <label for="date">Date:</label>
+            <input type="text" id="date" name="date"><br>
+            <label>Event Type:</label>
+            <select name="ev_type" id="ev_type">
+              <option value="Social">Study</option>
+              <option value="Social">Social</option>
+            </select><br>
+            <label>Subject:</label>
+            <select name="subject" id="subject">
+              <option value="English">English</option>
+              <option value="History">History</option>
+              <option value="Science">Science</option>
+              <option value="Math">Math</option>
+              <option value="Social">Social</option>
+            </select><br>
+            <input type="submit" value="Submit"><br>
+        </form>
+    </div>
+
+    <div id="map"></div>
+    <p>Click on the map to set the location of your event</p>
+
+  </body>
+</html>
