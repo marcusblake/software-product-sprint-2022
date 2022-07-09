@@ -9,17 +9,20 @@ window.onload = function() {
     this.getHeader();
 }
 
+/** Get school ID from URL parameter. */
 function getSchoolId() {
     search_params = new URLSearchParams(window.location.search);
     globals.school_id = search_params.get("school_id");
 }
 
+/** Update the header with the school name. */
 async function getHeader() {
     response = await fetch(`/school?school_id=${globals.school_id}`);
     school_info = await response.json();
     document.getElementById("header").innerHTML = `Happening in ${school_info.name}`;
 }
 
+/** Make subject options visible when "study" is checked. */
 function changeSubjectsVisibility() {
     if (document.getElementById("study").checked) {
         display = 'inline';
@@ -31,6 +34,7 @@ function changeSubjectsVisibility() {
     document.getElementById("subject-options").style.display = display;
 }
 
+/** Make sure at least one event type checked when submitting the filter. */
 function eventTypeChecked() {
     if (!document.getElementById("study").checked && !document.getElementById("social").checked) {
         alert("Please select at least one event type.");
