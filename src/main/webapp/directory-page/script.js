@@ -1,12 +1,21 @@
+/** Global variables. */
+globals = {
+    school_id: 0
+}
+
 /** Functions to execute on load. */
 window.onload = function() {
+    this.getSchoolId();
     this.getHeader();
 }
 
-async function getHeader() {
+function getSchoolId() {
     search_params = new URLSearchParams(window.location.search);
-    school_id = search_params.get("school_id");
-    response = await fetch(`/school?school_id=${school_id}`);
+    globals.school_id = search_params.get("school_id");
+}
+
+async function getHeader() {
+    response = await fetch(`/school?school_id=${globals.school_id}`);
     school_info = await response.json();
     document.getElementById("header").innerHTML = `Happening in ${school_info.name}`;
 }
