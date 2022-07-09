@@ -10,23 +10,23 @@
     <div id="content">
       <p align="right"><button onclick="location.href='addevent.html';">Add Event</button></p>
 
-      <h1>Happening in &lt;School Name&gt;</h1>
+      <h1 id="header"></h1>
 
-      <form action="/events" method="GET">
+      <form action="/events" method="GET" onsubmit="return eventTypeChecked();">
         <table style="width:100%; text-align:left;">
           <tr>
             <th>Event type:</th>
-            <th>Subject:</th>
+            <th id="subject-header" style="display: none;">Subject:</th>
           </tr>
           <tr style="vertical-align:top;">
             <td>
+              <input type="checkbox" id="study" name="study" value="study" onclick="changeSubjectsVisibility();">
+              <label for="study">Study</label>
+              <br>
               <input type="checkbox" id="social" name="social" value="social">
               <label for="social">Social</label>
-              <br>
-              <input type="checkbox" id="study" name="study" value="study">
-              <label for="study">Study</label>
             </td>
-            <td>
+            <td id="subject-options" style="display: none;">
                 <input type="checkbox" id="english" name="english" value="english">
                 <label for="english">English</label>
                 <br>
@@ -41,6 +41,7 @@
             </td>
           </tr>
         </table>
+        <br>
         <input type="submit" value="Filter"/>
       </form>
       <br>
