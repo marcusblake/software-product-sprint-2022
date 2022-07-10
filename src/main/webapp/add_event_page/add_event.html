@@ -13,21 +13,22 @@
     </div>
 
     <div id="form">
-        <form action="/new_event.php">
+        <form action="/event" method="POST">
             <label for="name">Event Name:</label>
             <input type="text" id="name" name="name"><br>
-            <label for="desc">Description:</label>
-            <textarea id="desc" name="desc"></textarea><br>
-            <label for="loc">Building Name:</label>
-            <input type="text" id="loc" name="loc"><br>
-            <label for="date">Date:</label>
-            <input type="text" id="date" name="date"><br>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description"></textarea><br>
+            <label for="location_name">Building Name:</label>
+            <input type="text" id="location_name" name="location_name"><br>
+            <label for="date">Date and Time:</label>
+            <input type="datetime-local" id="date" name="date"><br>
             <label>Event Type:</label>
-            <select name="ev_type" id="ev_type">
+            <select name="event_type" id="event_type">
               <option value="Social">Study</option>
               <option value="Social">Social</option>
             </select><br>
-            <label>Subject:</label>
+            <!--To be changed later-->
+            <label>Subject:</label> 
             <select name="subject" id="subject">
               <option value="English">English</option>
               <option value="History">History</option>
