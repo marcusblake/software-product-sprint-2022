@@ -17,7 +17,7 @@ window.onload = function() {
 }
 
 /**
- * Adds a random greeting to the page.
+ * Loads list of schools.
  */
 function loadSchool() {
   fetch('/school').then(response => response.json()).then((schools) => {
@@ -28,11 +28,10 @@ function loadSchool() {
   });
 }
 
-/** Creates an element that represents a school, including its delete button. */
+/** Creates an element that links to a school's directory page. */
 function createSchoolElement(school) {
   const schoolElement = document.createElement('a');
   schoolElement.innerText = school.name;
   schoolElement.setAttribute("href", `/directory-page/directory.html?school_id=${school.id}`)
   return schoolElement;
 }
-
