@@ -7,6 +7,7 @@ globals = {
 window.onload = function() {
     this.getSchoolId();
     this.getHeader();
+    this.getEvents();
 }
 
 /** Get school ID from URL parameter. */
@@ -42,3 +43,18 @@ function eventTypeChecked() {
     }
     return true;
 }
+
+function getEvents() {
+
+}
+
+// /** Fetches tasks from the server and adds them to the DOM. */
+// function displayEvents() {
+//     fetch(`/event?school_id=${globals.school_id}`).then(response => response.json()).then((events) => {
+//         const taskListElement = document.getElementById('task-list');
+//         tasks.forEach((task) => {
+//             taskListElement.appendChild(createTaskElement(task));
+//         })
+//     });
+// }
+  
