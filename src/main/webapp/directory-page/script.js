@@ -6,7 +6,7 @@ globals = {
     user_coords: new google.maps.LatLng(0, 0)
 }
 
-/** Functions to execute on load. */
+/** Execute on load. */
 window.onload = function() {
     this.getSchoolId();
     this.getHeader();
@@ -50,7 +50,7 @@ function eventTypeChecked() {
 /** Fetch the events from the backend. */
 async function loadEvents() {
     globals.events = await fetch(`/event?school_id=${globals.school_id}`).then(response => response.json());
-    resortEvents('time');
+    resortEvents(document.querySelector('input[name="sort-by"]:checked').value);
     displayEvents();
 }
 
@@ -69,7 +69,7 @@ async function resortEvents(order) {
         }
         catch(e) {
             alert('Unable to retrieve your location.');
-            document.getElementById('sortTime').checked = true;
+            document.getElementById('sort-time').checked = true;
         }
     }
 }

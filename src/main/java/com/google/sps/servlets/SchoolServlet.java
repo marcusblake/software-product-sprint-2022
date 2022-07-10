@@ -23,6 +23,12 @@ import com.google.sps.data.School;
 
 @WebServlet("/school")
 public class SchoolServlet extends HttpServlet {
+    private School createSchoolFromEntity(Entity entity) {
+        Long id = entity.getKey().getId();
+        String name = entity.getString("name");
+        LatLng position = entity.getLatLng("position");
+        return new School(id, name, position);
+    }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -31,11 +37,7 @@ public class SchoolServlet extends HttpServlet {
             Long school_id = Long.parseLong(request.getParameter("school_id"));
             KeyFactory keyFactory = datastore.newKeyFactory().setKind("School");
             Entity entity = datastore.get(keyFactory.newKey(school_id));
-
-            Long id = entity.getKey().getId();
-            String name = entity.getString("name");
-            LatLng position = entity.getLatLng("position");
-            School school = new School(id, name, position);
+            School school = createSchoolFromEntity(entity);
 
             Gson gson = new Gson();
             response.setContentType("application/json;");
@@ -48,12 +50,7 @@ public class SchoolServlet extends HttpServlet {
             List<School> schools = new ArrayList<>();
             while (results.hasNext()) {
                 Entity entity = results.next();
-
-                long id = entity.getKey().getId();
-                String name = entity.getString("name");
-                LatLng position = entity.getLatLng("position");
-
-                School school = new School(id, name, position);
+                School school = createSchoolFromEntity(entity);
                 schools.add(school);
             }
 
