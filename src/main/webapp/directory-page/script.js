@@ -11,6 +11,7 @@ window.onload = function() {
     this.getSchoolId();
     this.getHeader();
     this.loadEvents();
+    this.document.getElementById('add-event').setAttribute('onclick', `location.href = '../add_event_page/add_event.html?school_id=${globals.school_id}'`);
 }
 
 /** Get school ID from URL parameter. */
@@ -60,7 +61,7 @@ async function resortEvents(order) {
         globals.events.sort(compareTime);
         displayEvents();
     }
-    else { // order == 'distance
+    else { // order == 'distance'
         try {
             let position = await getUserLocation();
             globals.user_coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);

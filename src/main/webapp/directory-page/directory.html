@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="content">
-      <p align="right"><button onclick="location.href='addevent.html';">Add Event</button></p>
+      <p align="right"><button id="add-event">Add Event</button></p>
 
       <h1 id="header"></h1>
 
@@ -52,14 +52,7 @@
       <input type="radio" id="sort-distance" name="sort-by" onclick="resortEvents('distance')" value="distance" /> Distance
       <br><br>
 
-      <ul id="event-list">
-        <!--
-          <li onclick="location.href = 'event-info.html'">
-          <p class="event-name">Event Name</p>
-          <p class="event-descrip">Description</p>
-          <p class="event-loc-date">Location | Date</p>
-        -->
-      </ul>
+      <ul id="event-list"></ul>
     </div>
   </body>
 </html>
