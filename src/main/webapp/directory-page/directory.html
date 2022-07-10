@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Directory</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlz0NQ1mc6_UU6OHExGKIrpnkJ5q9BqPs&libraries=geometry"></script>
     <script src="script.js"></script>
   </head>
   <body>
@@ -47,26 +48,17 @@
       <br>
 
       Sort by: <br>
-      <input type="radio" name="sort-by" onclick="sort('time');" value="time" checked="checked"/> Time
-      <input type="radio" name="sort-by" onclick="sort('distance')" value="distance" /> Distance
+      <input type="radio" id="sort-time" name="sort-by" onclick="resortEvents('time');" value="time" checked="checked"/> Time
+      <input type="radio" id="sort-distance" name="sort-by" onclick="resortEvents('distance')" value="distance" /> Distance
       <br><br>
 
-      <ul id="directory-list">
-        <li onclick="location.href = 'event-info.html'">
-          <p id="event-name">Event Name</p>
-          <p id="event-descrip">Description</p>
-          <p id="event-loc">Location | Date</p>
-        </li>
-        <li onclick="location.href = 'event-info.html'">
-          <p id="event-name">Event Name</p>
-          <p id="event-descrip">Description</p>
-          <p id="event-loc">Location | Date</p>
-        </li>
-        <li onclick="location.href = 'event-info.html'">
-          <p id="event-name">Event Name</p>
-          <p id="event-descrip">Description</p>
-          <p id="event-loc">Location | Date</p>
-        </li>
+      <ul id="event-list">
+        <!--
+          <li onclick="location.href = 'event-info.html'">
+          <p class="event-name">Event Name</p>
+          <p class="event-descrip">Description</p>
+          <p class="event-loc-date">Location | Date</p>
+        -->
       </ul>
     </div>
   </body>

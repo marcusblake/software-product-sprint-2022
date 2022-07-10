@@ -1,6 +1,5 @@
 package com.google.sps.data;
 
-import com.google.cloud.datastore.TimestampValue;
 import com.google.cloud.datastore.LatLng;
 
 public class Event {
@@ -8,13 +7,13 @@ public class Event {
     private String name;
     private String description;
     private String location_name;
-    private TimestampValue date;
+    private String date;
     private String event_type;
     private String subject;
     private LatLng position;
     private Long school_id;
 
-    public Event(Long id, String name, String description, String location_name, TimestampValue date,
+    public Event(Long id, String name, String description, String location_name, String date,
                  String event_type, String subject, LatLng position, Long school_id) {
         this.id = id;
         this.name = name;
