@@ -15,14 +15,20 @@
 /**
  * Adds a random greeting to the page.
  */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
-
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+function loadSchool() {
+  fetch('/school').then(response => response.json()).then((schools) => {
+    const schoolListElement = document.getElementById('dd_school');
+    schools.forEach((school) => {
+      schoolListElement.appendChild(createschoolElement(school));
+    })
+  });
 }
+
+/** Creates an element that represents a school, including its delete button. */
+function createSchoolElement(school) {
+  const schoolElement = document.createElement('a');
+  schoolElement.innerText = school.name;
+  schoolElement.setAttribute("href", `/directory-page/directory.html?school_id=${school.id}`)
+  return schoolElement;
+}
+
