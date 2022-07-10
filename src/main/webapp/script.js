@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+window.onload = function() {
+  this.loadSchool();
+}
+
 /**
  * Adds a random greeting to the page.
  */
@@ -19,7 +23,7 @@ function loadSchool() {
   fetch('/school').then(response => response.json()).then((schools) => {
     const schoolListElement = document.getElementById('dd_school');
     schools.forEach((school) => {
-      schoolListElement.appendChild(createschoolElement(school));
+      schoolListElement.appendChild(createSchoolElement(school));
     })
   });
 }
