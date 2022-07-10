@@ -40,9 +40,9 @@ public class SchoolServlet extends HttpServlet {
             Gson gson = new Gson();
             response.setContentType("application/json;");
             response.getWriter().println(gson.toJson(school));
-        } else { /* Get all schools in data */
-            Query<Entity> query = Query.newEntityQueryBuilder().setKind("School").setOrderBy(OrderBy.desc("name"))
-                    .build();
+        }
+        else { /* Get all schools in data */
+            Query<Entity> query = Query.newEntityQueryBuilder().setKind("School").setOrderBy(OrderBy.asc("name")).build();
             QueryResults<Entity> results = datastore.run(query);
 
             List<School> schools = new ArrayList<>();
@@ -60,7 +60,6 @@ public class SchoolServlet extends HttpServlet {
             Gson gson = new Gson();
             response.setContentType("application/json;");
             response.getWriter().println(gson.toJson(schools));
-
         }
     }
 }
