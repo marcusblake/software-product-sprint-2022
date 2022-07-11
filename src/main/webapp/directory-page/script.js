@@ -12,6 +12,8 @@ window.onload = function() {
     this.getHeader();
     this.loadEvents();
     this.document.getElementById('add-event').setAttribute('onclick', `location.href = '../add_event_page/add_event.html?school_id=${globals.school_id}'`);
+    this.document.getElementById('filter-school-id').setAttribute('value', globals.school_id);
+    this.updateFilterState();
 }
 
 /** Get school ID from URL parameter. */
@@ -28,12 +30,16 @@ async function getHeader() {
 }
 
 /** Make subject options visible when "study" is checked. */
-function changeSubjectsVisibility() {
+function updateSubjectsVisibility() {
     if (document.getElementById("study").checked) {
         display = 'inline';
     }
     else {
         display = 'none';
+        subjects = document.querySelectorAll('input[name="subject"]');
+        subjects.forEach(subject => {
+            subject.checked = false;
+        })
     }
     document.getElementById("subject-header").style.display = display;
     document.getElementById("subject-options").style.display = display;
@@ -48,9 +54,20 @@ function eventTypeChecked() {
     return true;
 }
 
+/** Make the filter state match the given URL parameters. */
+function updateFilterState() {
+    search_params = Array.from(new URLSearchParams(window.location.search));
+    search_params.forEach(param => {
+        if (param[0] != 'school_id') {
+            document.getElementById(param[1]).checked = true;
+        }
+    });
+    updateSubjectsVisibility();
+}
+
 /** Fetch the events from the backend. */
 async function loadEvents() {
-    globals.events = await fetch(`/event?school_id=${globals.school_id}`).then(response => response.json());
+    globals.events = await fetch(`/event${window.location.search}`).then(response => response.json());
     resortEvents(document.querySelector('input[name="sort-by"]:checked').value);
     displayEvents();
 }

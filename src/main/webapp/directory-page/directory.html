@@ -13,7 +13,8 @@
 
       <h1 id="header"></h1>
 
-      <form action="" onsubmit="return eventTypeChecked();">
+      <form id="filter" action="directory.html" method="GET" onsubmit="return eventTypeChecked();">
+        <input id="filter-school-id" type="hidden" name="school_id" value=""/>
         <table style="width:100%; text-align:left;">
           <tr>
             <th>Event type:</th>
@@ -21,23 +22,23 @@
           </tr>
           <tr style="vertical-align:top;">
             <td>
-              <input type="checkbox" id="study" name="study" value="study" onclick="changeSubjectsVisibility();">
+              <input type="checkbox" id="study" name="event_type" value="study" onclick="updateSubjectsVisibility();">
               <label for="study">Study</label>
               <br>
-              <input type="checkbox" id="social" name="social" value="social">
+              <input type="checkbox" id="social" name="event_type" value="social">
               <label for="social">Social</label>
             </td>
             <td id="subject-options" style="display: none;">
-                <input type="checkbox" id="english" name="english" value="english">
+                <input type="checkbox" id="english" name="subject" value="english">
                 <label for="english">English</label>
                 <br>
-                <input type="checkbox" id="history" name="history" value="history">
+                <input type="checkbox" id="history" name="subject" value="history">
                 <label for="history">History</label>
                 <br>
-                <input type="checkbox" id="science" name="science" value="science">
+                <input type="checkbox" id="science" name="subject" value="science">
                 <label for="science">Science</label>
                 <br>
-                <input type="checkbox" id="math" name="math" value="math">
+                <input type="checkbox" id="math" name="subject" value="math">
                 <label for="math">Math</label>
             </td>
           </tr>
