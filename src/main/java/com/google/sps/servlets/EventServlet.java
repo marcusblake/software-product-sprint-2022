@@ -14,10 +14,15 @@ import com.google.cloud.datastore.StructuredQuery.OrderBy;
 import com.google.cloud.datastore.FullEntity;
 import com.google.cloud.datastore.KeyFactory;
 import com.google.gson.Gson;
-import java.util.ArrayList;
 import java.util.List;
 import com.google.cloud.datastore.Key;
 import com.google.sps.data.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
+import java.util.Map;
+import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
 
 @WebServlet("/event")
 public class EventServlet extends HttpServlet {
@@ -30,16 +35,33 @@ public class EventServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+        String jsonBody = new BufferedReader(new InputStreamReader(request.getInputStream())).lines().collect(
+            Collectors.joining("\n"));
+
+        // Error handling: return error if jsonBody is empty
+        if (jsonBody == null || jsonBody.trim().length() == 0) {
+            return;
+        }
+
+        // Parse the jsonBody String to a Gson object
+        Gson gson = new Gson();
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Map<String,String> myMap = gson.fromJson(jsonBody, type);
+        
         // Get the value entered in the form
-        String event_name = request.getParameter("name"); //name
+        String event_name = myMap.get("name");
+        String event_Lat = myMap.get("lat");
+        String event_Lng = myMap.get("lng");
+        String event_n = request.getParameter("name");
         String event_desc = request.getParameter("description");
         String event_loc = request.getParameter("location_name");
         String event_time = request.getParameter("date");
         String event_type = request.getParameter("event_type");
         String event_sub = request.getParameter("subject");
-        response.setContentType("text/html;");
-        response.getWriter().println("<p>Name: " + event_name + "</p>");
+
+        // Check if the content is read properly
+
+        Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
         
         // redirect to the event-info page
         //response.sendRedirect("");

@@ -13,7 +13,7 @@
     </div>
 
     <div id="form">
-        <form action="/event" method="POST">
+        <form>
             <label for="name">Event Name:</label>
             <input type="text" id="name" name="name"><br>
             <label for="description">Description:</label>
@@ -36,12 +36,13 @@
               <option value="Math">Math</option>
               <option value="Social">Social</option>
             </select><br>
-            <input type="submit" value="Submit"><br>
+            <input type="submit" value="Submit" onclick="submitEvent()"><br>
         </form>
     </div>
 
+    <p>Click on the map to set the location of your event:</p>
     <div id="map"></div>
-    <p>Click on the map to set the location of your event</p>
+    
 
   </body>
 </html>
