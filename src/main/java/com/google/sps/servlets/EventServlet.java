@@ -10,6 +10,8 @@ import com.google.cloud.datastore.DatastoreOptions;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.Entity;
+import com.google.cloud.datastore.FullEntity;
+import com.google.cloud.datastore.KeyFactory;
 import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
 import com.google.cloud.datastore.LatLng;
 import com.google.gson.Gson;
@@ -31,7 +33,7 @@ public class EventServlet extends HttpServlet {
         String name = entity.getString("name");
         String description = entity.getString("description");
         String location_name = entity.getString("location_name");
-        String date = entity.getTimestamp("date").toString();
+        String date = entity.getTimestamp("date").toString(); // change it to String?
         String event_type = entity.getString("event_type");
         String subject = entity.getString("subject");
         LatLng position = entity.getLatLng("position");
@@ -84,22 +86,41 @@ public class EventServlet extends HttpServlet {
         Type type = new TypeToken<Map<String, String>>(){}.getType();
         Map<String,String> myMap = gson.fromJson(jsonBody, type);
         
-        // Get the value entered in the form
-        String event_name = myMap.get("name");
+        // Get the value entered in the form  
         String event_Lat = myMap.get("lat");
+        Double event_Lat_D = Double.parseDouble(event_Lat);
         String event_Lng = myMap.get("lng");
-        String event_n = request.getParameter("name");
-        String event_desc = request.getParameter("description");
-        String event_loc = request.getParameter("location_name");
-        String event_time = request.getParameter("date");
-        String event_type = request.getParameter("event_type");
-        String event_sub = request.getParameter("subject");
+        Double event_Lng_D = Double.parseDouble(event_Lng);
+        String event_name = myMap.get("name");
+        String event_desc = myMap.get("description");
+        String event_loc = myMap.get("loc");
+        String event_time = myMap.get("date");
+        String event_type = myMap.get("type");
+        String event_sub = myMap.get("subject");
+        String event_school = myMap.get("school_id");
+        Long event_school_L = Long.parseLong(event_school);
 
-        // Check if the content is read properly
+        // Check if the content is read properly (checked)
+        // System.out.println(myMap);
 
+        // Store to the Datastore
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-        
+        KeyFactory keyFactory = datastore.newKeyFactory().setKind("Event");
+        LatLng position = LatLng.of(event_Lat_D,event_Lng_D);
+        FullEntity eventEntity =
+           Entity.newBuilder(keyFactory.newKey())
+               .set("name", event_name)
+               .set("description", event_desc)
+               .set("location_name", event_loc)
+               .set("date", event_time)
+               .set("event_type", event_type)
+               .set("subject", event_sub)
+               .set("position", position)
+               .set("school_id", event_school_L)
+               .build();
+        datastore.put(eventEntity);
+
         // redirect to the event-info page
-        //response.sendRedirect("");
+        // response.sendRedirect("/webapp/directory-page/directory.html");
     }
 }
