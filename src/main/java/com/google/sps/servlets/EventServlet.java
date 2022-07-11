@@ -36,8 +36,9 @@ public class EventServlet extends HttpServlet {
     @Override 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-        Long school_id = Long.parseLong(request.getParameter("school_id"));
+        
         if (request.getParameterMap().containsKey("school_id")) {
+            Long school_id = Long.parseLong(request.getParameter("school_id"));
             Query<Entity> query = Query.newEntityQueryBuilder()
                                        .setKind("Event")
                                        .setFilter(PropertyFilter.eq("school_id", school_id))
