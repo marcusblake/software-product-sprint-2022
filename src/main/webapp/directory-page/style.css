@@ -6,12 +6,13 @@
   padding-bottom: 50px;
 }
 
-#directory-list {
+#event-list {
   padding: 0px;
   position: relative;
 }
   
-#directory-list li {
+#event-list li {
+  cursor: pointer;
   margin: 15px;
   padding-left: 40px;
   padding-right: 40px;
@@ -22,7 +23,7 @@
   box-shadow: 10px 10px 0px rgba(128, 128, 128, 0.1);
 }
   
-#event-name {
+.event-name {
   font-size: x-large;
   font-weight: bold;
 }

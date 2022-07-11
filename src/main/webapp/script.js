@@ -12,17 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+window.onload = function() {
+  this.loadSchool();
+}
+
 /**
- * Adds a random greeting to the page.
+ * Loads list of schools.
  */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+function loadSchool() {
+  fetch('/school').then(response => response.json()).then((schools) => {
+    const schoolListElement = document.getElementById('dd_school');
+    schools.forEach((school) => {
+      schoolListElement.appendChild(createSchoolElement(school));
+    })
+  });
+}
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+/** Creates an element that links to a school's directory page. */
+function createSchoolElement(school) {
+  const schoolElement = document.createElement('a');
+  schoolElement.innerText = school.name;
+  schoolElement.setAttribute("href", `/directory-page/directory.html?school_id=${school.id}`)
+  return schoolElement;
 }

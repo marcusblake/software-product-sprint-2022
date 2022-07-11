@@ -4,29 +4,30 @@
     <meta charset="UTF-8">
     <title>Directory</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlz0NQ1mc6_UU6OHExGKIrpnkJ5q9BqPs&libraries=geometry"></script>
     <script src="script.js"></script>
   </head>
   <body>
     <div id="content">
-      <p align="right"><button onclick="location.href='addevent.html';">Add Event</button></p>
+      <p align="right"><button id="add-event">Add Event</button></p>
 
-      <h1>Happening in &lt;School Name&gt;</h1>
+      <h1 id="header"></h1>
 
-      <form action="/events" method="GET">
+      <form action="" onsubmit="return eventTypeChecked();">
         <table style="width:100%; text-align:left;">
           <tr>
             <th>Event type:</th>
-            <th>Subject:</th>
+            <th id="subject-header" style="display: none;">Subject:</th>
           </tr>
           <tr style="vertical-align:top;">
             <td>
+              <input type="checkbox" id="study" name="study" value="study" onclick="changeSubjectsVisibility();">
+              <label for="study">Study</label>
+              <br>
               <input type="checkbox" id="social" name="social" value="social">
               <label for="social">Social</label>
-              <br>
-              <input type="checkbox" id="study" name="study" value="study">
-              <label for="study">Study</label>
             </td>
-            <td>
+            <td id="subject-options" style="display: none;">
                 <input type="checkbox" id="english" name="english" value="english">
                 <label for="english">English</label>
                 <br>
@@ -41,32 +42,17 @@
             </td>
           </tr>
         </table>
+        <br>
         <input type="submit" value="Filter"/>
       </form>
       <br>
 
       Sort by: <br>
-      <input type="radio" name="sort-by" onclick="sort('time');" value="time" checked="checked"/> Time
-      <input type="radio" name="sort-by" onclick="sort('distance')" value="distance" /> Distance
+      <input type="radio" id="sort-time" name="sort-by" onclick="resortEvents('time');" value="time" checked="checked"/> Time
+      <input type="radio" id="sort-distance" name="sort-by" onclick="resortEvents('distance')" value="distance" /> Distance
       <br><br>
 
-      <ul id="directory-list">
-        <li onclick="location.href = 'event-info.html'">
-          <p id="event-name">Event Name</p>
-          <p id="event-descrip">Description</p>
-          <p id="event-loc">Location | Date</p>
-        </li>
-        <li onclick="location.href = 'event-info.html'">
-          <p id="event-name">Event Name</p>
-          <p id="event-descrip">Description</p>
-          <p id="event-loc">Location | Date</p>
-        </li>
-        <li onclick="location.href = 'event-info.html'">
-          <p id="event-name">Event Name</p>
-          <p id="event-descrip">Description</p>
-          <p id="event-loc">Location | Date</p>
-        </li>
-      </ul>
+      <ul id="event-list"></ul>
     </div>
   </body>
 </html>
