@@ -107,7 +107,7 @@ function getUserLocation() {
 
 /** Gets events and displays them on the page. */
 function displayEvents() {
-    document.getElementById('no-events').style.display = (globals.events.length == 0)  ? 'inline' : 'none';
+    document.getElementById('no-events').style.display = (globals.events.length == 0) ? 'inline' : 'none';
     const eventListElement = document.getElementById('event-list');
     eventListElement.innerHTML = '';
     globals.events.forEach((event) => {
