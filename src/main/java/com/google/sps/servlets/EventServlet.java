@@ -5,10 +5,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import com.google.cloud.Timestamp;
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
+import com.google.cloud.datastore.TimestampValue;
 import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.FullEntity;
 import com.google.cloud.datastore.KeyFactory;
@@ -33,7 +36,7 @@ public class EventServlet extends HttpServlet {
         String name = entity.getString("name");
         String description = entity.getString("description");
         String location_name = entity.getString("location_name");
-        String date = entity.getTimestamp("date").toString(); // change it to String?
+        String date = entity.getTimestamp("date").toString();
         String event_type = entity.getString("event_type");
         String subject = entity.getString("subject");
         LatLng position = entity.getLatLng("position");
@@ -84,30 +87,26 @@ public class EventServlet extends HttpServlet {
         // Parse the jsonBody String to a Gson object
         Gson gson = new Gson();
         Type type = new TypeToken<Map<String, String>>(){}.getType();
-        Map<String,String> myMap = gson.fromJson(jsonBody, type);
+        Map<String,String> eventJsonAsMap = gson.fromJson(jsonBody, type);
         
         // Get the value entered in the form  
-        String event_Lat = myMap.get("lat");
-        Double event_Lat_D = Double.parseDouble(event_Lat);
-        String event_Lng = myMap.get("lng");
-        Double event_Lng_D = Double.parseDouble(event_Lng);
-        String event_name = myMap.get("name");
-        String event_desc = myMap.get("description");
-        String event_loc = myMap.get("loc");
-        String event_time = myMap.get("date");
-        String event_type = myMap.get("type");
-        String event_sub = myMap.get("subject");
-        String event_school = myMap.get("school_id");
-        Long event_school_L = Long.parseLong(event_school);
+        Double event_Lat_D = Double.parseDouble(eventJsonAsMap.get("lat"));
+        Double event_Lng_D = Double.parseDouble(eventJsonAsMap.get("lng"));
+        String event_name = eventJsonAsMap.get("name");
+        String event_desc = eventJsonAsMap.get("description");
+        String event_loc = eventJsonAsMap.get("loc");
+        TimestampValue event_time = TimestampValue.of(Timestamp.parseTimestamp((eventJsonAsMap.get("date"))));
+        String event_type = eventJsonAsMap.get("type");
+        String event_sub = eventJsonAsMap.get("subject");
+        Long event_school_L = Long.parseLong( eventJsonAsMap.get("school_id"));
 
-        // Check if the content is read properly (checked)
-        // System.out.println(myMap);
+        System.out.println(event_time);
 
         // Store to the Datastore
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
         KeyFactory keyFactory = datastore.newKeyFactory().setKind("Event");
         LatLng position = LatLng.of(event_Lat_D,event_Lng_D);
-        FullEntity eventEntity =
+        /*FullEntity eventEntity =
            Entity.newBuilder(keyFactory.newKey())
                .set("name", event_name)
                .set("description", event_desc)
@@ -118,7 +117,7 @@ public class EventServlet extends HttpServlet {
                .set("position", position)
                .set("school_id", event_school_L)
                .build();
-        datastore.put(eventEntity);
+        datastore.put(eventEntity);*/
 
         // redirect to the event-info page
         // response.sendRedirect("/webapp/directory-page/directory.html");
