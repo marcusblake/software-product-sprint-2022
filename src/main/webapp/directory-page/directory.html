@@ -13,7 +13,7 @@
 
       <h1 id="header"></h1>
 
-      <form id="filter" action="directory.html" method="GET" onsubmit="return eventTypeChecked();">
+      <form id="filter" action="directory.html" method="GET">
         <input id="filter-school-id" type="hidden" name="school_id" value=""/>
         <table style="width:100%; text-align:left;">
           <tr>
@@ -22,23 +22,23 @@
           </tr>
           <tr style="vertical-align:top;">
             <td>
-              <input type="checkbox" id="study" name="event_type" value="study" onclick="updateSubjectsVisibility();">
+              <input type="checkbox" id="Study" name="event_type" value="Study" onclick="updateSubjectsVisibility();">
               <label for="study">Study</label>
               <br>
-              <input type="checkbox" id="social" name="event_type" value="social">
+              <input type="checkbox" id="Social" name="event_type" value="Social">
               <label for="social">Social</label>
             </td>
             <td id="subject-options" style="display: none;">
-                <input type="checkbox" id="english" name="subject" value="english">
+                <input type="checkbox" id="English" name="subject" value="English">
                 <label for="english">English</label>
                 <br>
-                <input type="checkbox" id="history" name="subject" value="history">
+                <input type="checkbox" id="History" name="subject" value="History">
                 <label for="history">History</label>
                 <br>
-                <input type="checkbox" id="science" name="subject" value="science">
+                <input type="checkbox" id="Science" name="subject" value="Science">
                 <label for="science">Science</label>
                 <br>
-                <input type="checkbox" id="math" name="subject" value="math">
+                <input type="checkbox" id="Math" name="subject" value="Math">
                 <label for="math">Math</label>
             </td>
           </tr>

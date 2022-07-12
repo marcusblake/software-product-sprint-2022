@@ -10,10 +10,15 @@ import com.google.cloud.datastore.DatastoreOptions;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
 import com.google.cloud.datastore.Entity;
+import com.google.cloud.datastore.StructuredQuery.CompositeFilter;
 import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
+import com.google.datastore.v1.Filter;
+import com.google.datastore.v1.PropertyFilterOrBuilder;
 import com.google.cloud.datastore.LatLng;
+import com.google.cloud.datastore.ListValue;
 import com.google.gson.Gson;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.sps.data.Event;
@@ -36,9 +41,29 @@ public class EventServlet extends HttpServlet {
     @Override 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
-        
+
         if (request.getParameterMap().containsKey("school_id")) {
             Long school_id = Long.parseLong(request.getParameter("school_id"));
+
+            String[] event_types_arr = {};
+            if (request.getParameterMap().containsKey("event_type")) {
+                event_types_arr = request.getParameterValues("event_type");
+            }
+            else {
+                event_types_arr = Event.getEventTypes();
+            }
+            ArrayList<String> event_types = new ArrayList<>(Arrays.asList(event_types_arr));
+
+            String[] subjects_arr = {};
+            if (request.getParameterMap().containsKey("subject")) {
+                subjects_arr = request.getParameterValues("subject");
+            }
+            else {
+                subjects_arr = Event.getSubjects();
+            }
+            ArrayList<String> subjects = new ArrayList<>(Arrays.asList(subjects_arr));
+            subjects.add("");
+
             Query<Entity> query = Query.newEntityQueryBuilder()
                                        .setKind("Event")
                                        .setFilter(PropertyFilter.eq("school_id", school_id))
@@ -48,6 +73,10 @@ public class EventServlet extends HttpServlet {
             List<Event> events = new ArrayList<>();
             while (results.hasNext()) {
                 Entity entity = results.next();
+                if (!event_types.contains(entity.getString("event_type")) ||
+                    !subjects.contains(entity.getString("subject"))) {
+                    continue;
+                }
                 Event event = createEventFromEntity(entity);
                 events.add(event);
             }

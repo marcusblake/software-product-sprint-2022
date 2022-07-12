@@ -29,9 +29,9 @@ async function getHeader() {
     document.getElementById("header").innerHTML = `Happening in ${school_info.name}`;
 }
 
-/** Make subject options visible when "study" is checked. */
+/** Make subject options visible when "Study" is checked. */
 function updateSubjectsVisibility() {
-    if (document.getElementById("study").checked) {
+    if (document.getElementById("Study").checked) {
         display = 'inline';
     }
     else {
@@ -43,15 +43,6 @@ function updateSubjectsVisibility() {
     }
     document.getElementById("subject-header").style.display = display;
     document.getElementById("subject-options").style.display = display;
-}
-
-/** Make sure at least one event type checked when submitting the filter. */
-function eventTypeChecked() {
-    if (!document.getElementById("study").checked && !document.getElementById("social").checked) {
-        alert("Please select at least one event type.");
-        return false;
-    }
-    return true;
 }
 
 /** Make the filter state match the given URL parameters. */
