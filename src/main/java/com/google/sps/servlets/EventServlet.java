@@ -106,7 +106,7 @@ public class EventServlet extends HttpServlet {
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
         KeyFactory keyFactory = datastore.newKeyFactory().setKind("Event");
         LatLng position = LatLng.of(event_Lat_D,event_Lng_D);
-        /*FullEntity eventEntity =
+        FullEntity eventEntity =
            Entity.newBuilder(keyFactory.newKey())
                .set("name", event_name)
                .set("description", event_desc)
@@ -117,9 +117,6 @@ public class EventServlet extends HttpServlet {
                .set("position", position)
                .set("school_id", event_school_L)
                .build();
-        datastore.put(eventEntity);*/
-
-        // redirect to the event-info page
-        // response.sendRedirect("/webapp/directory-page/directory.html");
+        datastore.put(eventEntity);
     }
 }

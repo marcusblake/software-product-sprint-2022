@@ -7,37 +7,35 @@ let currentLatitude;
 let currentLongitude;
 
 window.onload = function() {
-    console.log('Hiii');
     this.getSchool();
-    this.getPos();
+    this.initMap();
+    this.document.getElementById('back').setAttribute('onclick', `location.href = '../directory-page/directory.html?school_id=${school_id}'`);
 }
 
 function getSchool(){
     new_search = new URLSearchParams(window.location.search);
     school_id = new_search.get("school_id");
-    console.log(school_id);
 }
 
 async function getPos(){
-    console.log('Hiii');
-    response = await fetch(`/school?school_id=${school_id}`);
+    response = await fetch(`/school?school_id=${school_id}`)
     school_info = await response.json();
-    console.log(school_info);
     school_position = school_info.position;
-    initial_lat = school_position.latitude;
-    initial_lng = school_position.longitude;
+    initial_lat = parseFloat(school_position.latitude);
+    initial_lng = parseFloat(school_position.longitude);
     currentLatitude = initial_lat;
     currentLongitude = initial_lng;
 }
 
-function initMap(){
+async function initMap(){
+    await this.getPos();
     map = new google.maps.Map(document.getElementById("map"),{
-        center: school_position,
+        center: {lat:initial_lat, lng:initial_lng},
         zoom: 16,
     });
 
     var marker = new google.maps.Marker({
-        position: school_position,
+        position: {lat:initial_lat, lng:initial_lng},
         map: map,
         draggable: true,
     });
