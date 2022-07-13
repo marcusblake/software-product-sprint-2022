@@ -80,10 +80,19 @@ public class EventServlet extends HttpServlet {
             List<Event> events = new ArrayList<>();
             while (results.hasNext()) {
                 Entity entity = results.next();
+
+                if (entity.getTimestamp("date").compareTo(Timestamp.now()) < 0) {
+                    Long event_id = entity.getKey().getId();
+                    KeyFactory keyFactory = datastore.newKeyFactory().setKind("Event");
+                    datastore.delete(keyFactory.newKey(event_id));
+                    continue;
+                }
+
                 if (!event_types.contains(entity.getString("event_type")) ||
                     !subjects.contains(entity.getString("subject"))) {
                     continue;
                 }
+
                 Event event = createEventFromEntity(entity);
                 events.add(event);
             }
