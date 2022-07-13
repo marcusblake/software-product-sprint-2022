@@ -15,6 +15,7 @@ import com.google.cloud.datastore.LatLng;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.cloud.datastore.KeyFactory;
 
 import com.google.sps.data.Event;
 
@@ -59,7 +60,16 @@ public class EventServlet extends HttpServlet {
         } 
         else {
             // ToDo: Seokha Kang implement this method.
-            response.getWriter().println("You've called the get request");
+            Long event_id = Long.parseLong(request.getParameter("event_id"));
+            KeyFactory keyFactory = datastore.newKeyFactory().setKind("Event");
+            Entity entity = datastore.get(keyFactory.newKey(event_id));
+            Event event = createEventFromEntity(entity);
+
+            Gson gson = new Gson();
+            response.setContentType("application/json;");
+            response.getWriter().println(gson.toJson(event));
+            System.out.println(gson.toJson(event));
+            //response.getWriter().println("You've called the get request");
         }
     }
 
