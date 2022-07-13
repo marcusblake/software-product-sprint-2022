@@ -7,27 +7,28 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlz0NQ1mc6_UU6OHExGKIrpnkJ5q9BqPs"></script>
     <script src="script.js"></script>
   </head>
-  <body onload="initMap()">
+  <body>
     <div id="header">
       <h1>Add New Event</h1>
     </div>
 
     <div id="form">
-        <form action="/new_event.php">
+        <form>
             <label for="name">Event Name:</label>
             <input type="text" id="name" name="name"><br>
-            <label for="desc">Description:</label>
-            <textarea id="desc" name="desc"></textarea><br>
-            <label for="loc">Building Name:</label>
-            <input type="text" id="loc" name="loc"><br>
-            <label for="date">Date:</label>
-            <input type="text" id="date" name="date"><br>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description"></textarea><br>
+            <label for="location_name">Building Name:</label>
+            <input type="text" id="location_name" name="location_name"><br>
+            <label for="date">Date and Time:</label>
+            <input type="datetime-local" id="date" name="date"><br>
             <label>Event Type:</label>
-            <select name="ev_type" id="ev_type">
-              <option value="Social">Study</option>
+            <select name="event_type" id="event_type">
+              <option value="Study">Study</option>
               <option value="Social">Social</option>
             </select><br>
-            <label>Subject:</label>
+            <!--To be changed later-->
+            <label>Subject:</label> 
             <select name="subject" id="subject">
               <option value="English">English</option>
               <option value="History">History</option>
@@ -35,12 +36,14 @@
               <option value="Math">Math</option>
               <option value="Social">Social</option>
             </select><br>
-            <input type="submit" value="Submit"><br>
+            <input type="submit" value="Submit" onclick="submitEvent()"><br>
         </form>
+        <button id="back">Back</button>
     </div>
 
+    <p>Click on the map to set the location of your event:</p>
     <div id="map"></div>
-    <p>Click on the map to set the location of your event</p>
+    
 
   </body>
 </html>
