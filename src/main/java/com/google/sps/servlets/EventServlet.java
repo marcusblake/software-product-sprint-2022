@@ -81,14 +81,22 @@ public class EventServlet extends HttpServlet {
 
         // Error handling: return error if jsonBody is empty
         if (jsonBody == null || jsonBody.trim().length() == 0) {
-            return;
+            System.out.println("the String fails to be parsed");
+            throw new NullPointerException();
         }
 
         // Parse the jsonBody String to a Gson object
         Gson gson = new Gson();
         Type type = new TypeToken<Map<String, String>>(){}.getType();
         Map<String,String> eventJsonAsMap = gson.fromJson(jsonBody, type);
-        
+
+        // Check if all the fields are present
+        if (!checkAllEventFieldsPresent(eventJsonAsMap)){
+            // throw error
+            System.out.println("Not all the fields in the map are present");
+            throw new NullPointerException();
+        }
+
         // Get the value entered in the form  
         Double event_Lat_D = Double.parseDouble(eventJsonAsMap.get("lat"));
         Double event_Lng_D = Double.parseDouble(eventJsonAsMap.get("lng"));
@@ -99,8 +107,6 @@ public class EventServlet extends HttpServlet {
         String event_type = eventJsonAsMap.get("type");
         String event_sub = eventJsonAsMap.get("subject");
         Long event_school_L = Long.parseLong( eventJsonAsMap.get("school_id"));
-
-        System.out.println(event_time);
 
         // Store to the Datastore
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
@@ -118,5 +124,39 @@ public class EventServlet extends HttpServlet {
                .set("school_id", event_school_L)
                .build();
         datastore.put(eventEntity);
+    }
+
+    private boolean checkAllEventFieldsPresent(Map<String, String> eventJson){
+        if (!eventJson.containsKey("name")){
+            return false;
+        }
+        else if (!eventJson.containsKey("description")){
+            return false;
+        }
+        else if (!eventJson.containsKey("loc")){
+            return false;
+        }
+        else if (!eventJson.containsKey("date")){
+            return false;
+        }
+        else if (!eventJson.containsKey("type")){
+            return false;
+        }
+        else if (!eventJson.containsKey("subject")){
+            return false;
+        }
+        else if (!eventJson.containsKey("lat")){
+            return false;
+        }
+        else if (!eventJson.containsKey("lng")){
+            return false;
+        }
+        else if (!eventJson.containsKey("school_id")){
+            return false;
+        }
+        else{
+            return true;
+        }
+
     }
 }
