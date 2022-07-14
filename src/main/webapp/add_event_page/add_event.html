@@ -11,23 +11,21 @@
     <div id="header">
       <h1>Add New Event</h1>
     </div>
-
-    <div id="form">
-        <form>
+        <form id="form" method="POST">
             <label for="name">Event Name:</label>
-            <input type="text" id="name" name="name"><br>
+            <input type="text" id="name" name="name" required><br>
             <label for="description">Description:</label>
-            <textarea id="description" name="description"></textarea><br>
+            <textarea id="description" name="description" required></textarea><br>
             <label for="location_name">Building Name:</label>
-            <input type="text" id="location_name" name="location_name"><br>
+            <input type="text" id="location_name" name="location_name" required><br>
             <label for="date">Date and Time:</label>
-            <input type="datetime-local" id="date" name="date"><br>
+            <input type="datetime-local" id="date" name="date" required><br>
             <label>Event Type:</label>
-            <select name="event_type" id="event_type">
+            <select id="event_type" name="event_type" onclick="checkType()" required>
               <option value="Study">Study</option>
               <option value="Social">Social</option>
             </select><br>
-            <!--To be changed later-->
+
             <label>Subject:</label> 
             <select name="subject" id="subject">
               <option value="English">English</option>
@@ -39,7 +37,7 @@
             <input type="submit" value="Submit" onclick="submitEvent()"><br>
         </form>
         <button id="back">Back</button>
-    </div>
+    
 
     <p>Click on the map to set the location of your event:</p>
     <div id="map"></div>

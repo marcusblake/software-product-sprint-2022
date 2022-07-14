@@ -10,6 +10,7 @@ window.onload = function() {
     this.getSchool();
     this.initMap();
     this.document.getElementById('back').setAttribute('onclick', `location.href = '../directory-page/directory.html?school_id=${school_id}'`);
+    this.document.getElementById('form').setAttribute('action', `../directory-page/directory.html?school_id=${school_id}`);
 }
 
 function getSchool(){
@@ -48,6 +49,17 @@ async function initMap(){
 }
 window.initMap = initMap;
 
+function checkType(){
+    console.log("being called successfully");
+    if (this.document.getElementById("event_type").value == "study") {
+        console.log('study');
+        this.document.getElementById("subject").style.display = '';
+    } else {
+        console.log('social');
+        this.document.getElementById("subject").style.display = 'none';
+    }
+}
+
 function submitEvent(){
     var event_name = document.getElementById("name").value;
     var event_des = document.getElementById("description").value;
@@ -72,4 +84,7 @@ function submitEvent(){
          body: JSON.stringify(data),
     });
 }
+
+
+
  
