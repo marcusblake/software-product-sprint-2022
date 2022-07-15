@@ -50,14 +50,23 @@ async function initMap(){
 window.initMap = initMap;
 
 function checkType(){
-    console.log("being called successfully");
-    if (this.document.getElementById("event_type").value == "study") {
-        console.log('study');
-        this.document.getElementById("subject").style.display = '';
+    if (this.document.getElementById("event_type").value == "Study") {
+        this.document.getElementById("subject1").style.display = '';
+        this.document.getElementById("subject2").style.display = '';
     } else {
-        console.log('social');
-        this.document.getElementById("subject").style.display = 'none';
+        this.document.getElementById("subject1").style.display = 'none';
+        this.document.getElementById("subject2").style.display = 'none';
     }
+}
+
+function checkMin(){
+    now = new Date();
+    formatted_date = now.getFullYear() + '-' +
+        String(now.getMonth() + 1).padStart(2, '0') + '-' +
+        String(now.getDate()).padStart(2, '0') + 'T' +
+        String(now.getHours()).padStart(2, '0') + ':' +
+        String(now.getMinutes()).padStart(2, '0');
+    this.document.getElementById('date').setAttribute('min', formatted_date);
 }
 
 function submitEvent(){

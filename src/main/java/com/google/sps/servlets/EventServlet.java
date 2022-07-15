@@ -106,13 +106,16 @@ public class EventServlet extends HttpServlet {
         TimestampValue event_time = TimestampValue.of(Timestamp.parseTimestamp((eventJsonAsMap.get("date"))));
         String event_type = eventJsonAsMap.get("type");
         String event_sub = eventJsonAsMap.get("subject");
+        if (event_type=="social"){
+            event_sub = "";
+        }
         Long event_school_L = Long.parseLong( eventJsonAsMap.get("school_id"));
 
         // Store to the Datastore
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
         KeyFactory keyFactory = datastore.newKeyFactory().setKind("Event");
         LatLng position = LatLng.of(event_Lat_D,event_Lng_D);
-        /*FullEntity eventEntity =
+        FullEntity eventEntity =
            Entity.newBuilder(keyFactory.newKey())
                .set("name", event_name)
                .set("description", event_desc)
@@ -123,7 +126,7 @@ public class EventServlet extends HttpServlet {
                .set("position", position)
                .set("school_id", event_school_L)
                .build();
-        datastore.put(eventEntity);*/
+        datastore.put(eventEntity);
     }
 
     private boolean checkAllEventFieldsPresent(Map<String, String> eventJson){
@@ -157,6 +160,5 @@ public class EventServlet extends HttpServlet {
         else{
             return true;
         }
-
     }
 }

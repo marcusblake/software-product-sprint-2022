@@ -19,15 +19,15 @@
             <label for="location_name">Building Name:</label>
             <input type="text" id="location_name" name="location_name" required><br>
             <label for="date">Date and Time:</label>
-            <input type="datetime-local" id="date" name="date" required><br>
+            <input type="datetime-local" id="date" name="date" required onchange="checkMin()"><br>
             <label>Event Type:</label>
-            <select id="event_type" name="event_type" onclick="checkType()" required>
+            <select id="event_type" name="event_type" required onchange="checkType()">
               <option value="Study">Study</option>
               <option value="Social">Social</option>
             </select><br>
 
-            <label>Subject:</label> 
-            <select name="subject" id="subject">
+            <label id="subject1">Subject:</label> 
+            <select name="subject" id="subject2">
               <option value="English">English</option>
               <option value="History">History</option>
               <option value="Science">Science</option>
