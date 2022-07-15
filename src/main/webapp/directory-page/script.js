@@ -13,7 +13,7 @@ window.onload = function() {
     this.loadEvents();
     this.document.getElementById('add-event').setAttribute('onclick', `location.href = '../add_event_page/add_event.html?school_id=${globals.school_id}'`);
     this.document.getElementById('filter-school-id').setAttribute('value', globals.school_id);
-    this.updateFilterState();
+    this.loadFilterState();
 }
 
 /** Get school ID from URL parameter. */
@@ -29,8 +29,8 @@ async function getHeader() {
     document.getElementById("header").innerHTML = `Happening in ${school_info.name}`;
 }
 
-/** Make subject options visible when "Study" is checked. */
-function updateSubjectsVisibility() {
+/** Hides or unhides the subject options depending on if 'Study' is checked. */
+function updateFilterState() {
     if (document.getElementById("Study").checked) {
         display = 'inline';
     }
@@ -45,15 +45,22 @@ function updateSubjectsVisibility() {
     document.getElementById("subject-options").style.display = display;
 }
 
+/** Clears the filter. */
+function clearFilter() {
+    document.getElementById("Study").checked = false;
+    document.getElementById("Social").checked = false;
+    updateFilterState();
+}
+
 /** Make the filter state match the given URL parameters. */
-function updateFilterState() {
+function loadFilterState() {
     search_params = Array.from(new URLSearchParams(window.location.search));
     search_params.forEach(param => {
         if (param[0] != 'school_id') {
             document.getElementById(param[1]).checked = true;
         }
     });
-    updateSubjectsVisibility();
+    updateFilterState();
 }
 
 /** Fetch the events from the backend. */

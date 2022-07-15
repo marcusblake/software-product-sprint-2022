@@ -13,9 +13,6 @@ public class Event {
     private LatLng position;
     private Long school_id;
 
-    private static String[] event_types = {"Study", "Social"};
-    private static String[] subjects = {"English", "History", "Science", "Math"};
-
     public Event(Long id, String name, String description, String location_name, String date,
                  String event_type, String subject, LatLng position, Long school_id) {
         this.id = id;
@@ -27,13 +24,5 @@ public class Event {
         this.subject = subject;
         this.position = position;
         this. school_id = school_id;
-    }
-
-    public static String[] getEventTypes() {
-        return event_types;
-    }
-
-    public static String[] getSubjects() {
-        return subjects;
     }
 }

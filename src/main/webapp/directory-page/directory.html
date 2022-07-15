@@ -13,7 +13,7 @@
 
       <h1 id="header"></h1>
 
-      <form id="filter" action="directory.html" method="GET">
+      <form id="filter" action="directory.html" method="GET" onsubmit="filterOnSubmit();">
         <input id="filter-school-id" type="hidden" name="school_id" value=""/>
         <table style="width:100%; text-align:left;">
           <tr>
@@ -22,29 +22,31 @@
           </tr>
           <tr style="vertical-align:top;">
             <td>
-              <input type="checkbox" id="Study" name="event_type" value="Study" onclick="updateSubjectsVisibility();">
-              <label for="study">Study</label>
+              <input type="radio" id="Study" name="event_type" value="Study" onclick="updateFilterState();">
+              <label for="Study">Study</label>
               <br>
-              <input type="checkbox" id="Social" name="event_type" value="Social">
-              <label for="social">Social</label>
+              <input type="radio" id="Social" name="event_type" value="Social" onclick="updateFilterState();">
+              <label for="Social">Social</label>
             </td>
             <td id="subject-options" style="display: none;">
                 <input type="checkbox" id="English" name="subject" value="English">
-                <label for="english">English</label>
+                <label for="English">English</label>
                 <br>
                 <input type="checkbox" id="History" name="subject" value="History">
-                <label for="history">History</label>
+                <label for="History">History</label>
                 <br>
                 <input type="checkbox" id="Science" name="subject" value="Science">
-                <label for="science">Science</label>
+                <label for="Science">Science</label>
                 <br>
                 <input type="checkbox" id="Math" name="subject" value="Math">
-                <label for="math">Math</label>
+                <label for="Math">Math</label>
             </td>
           </tr>
         </table>
         <br>
         <input type="submit" value="Filter"/>
+        &nbsp;
+        <button id="clear-filter" onclick="clearFilter();">Clear</button>
       </form>
       <br>
 
