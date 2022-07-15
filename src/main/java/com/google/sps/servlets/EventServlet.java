@@ -81,13 +81,6 @@ public class EventServlet extends HttpServlet {
             while (results.hasNext()) {
                 Entity entity = results.next();
 
-                if (entity.getTimestamp("date").compareTo(Timestamp.now()) < 0) {
-                    Long event_id = entity.getKey().getId();
-                    KeyFactory keyFactory = datastore.newKeyFactory().setKind("Event");
-                    datastore.delete(keyFactory.newKey(event_id));
-                    continue;
-                }
-
                 if (!event_types.contains(entity.getString("event_type")) ||
                     !subjects.contains(entity.getString("subject"))) {
                     continue;
@@ -103,8 +96,15 @@ public class EventServlet extends HttpServlet {
             response.getWriter().println(gson.toJson(events));
         } 
         else {
-            // ToDo: Seokha Kang implement this method.
-            response.getWriter().println("You've called the get request");
+            Long event_id = Long.parseLong(request.getParameter("event_id"));
+            KeyFactory keyFactory = datastore.newKeyFactory().setKind("Event");
+            Entity entity = datastore.get(keyFactory.newKey(event_id));
+            Event event = createEventFromEntity(entity);
+            
+            Gson gson = new Gson();
+            response.setContentType("application/json;");
+            response.getWriter().println(gson.toJson(event));
+            System.out.println(gson.toJson(event));
         }
     }
 
