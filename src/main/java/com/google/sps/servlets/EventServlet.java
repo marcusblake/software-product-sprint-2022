@@ -21,6 +21,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 import java.util.Map;
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -45,6 +46,28 @@ public class EventServlet extends HttpServlet {
         return new Event(id, name, description, location_name, date, event_type, subject, position, school_id);
     }
 
+    private List<ArrayList<String>> getFilterParameters(HttpServletRequest request) {
+        String[] event_types_arr = request.getParameterValues("event_type");
+        String[] subjects_arr = {};
+
+        if (request.getParameterMap().containsKey("subject")) {
+            subjects_arr = request.getParameterValues("subject");
+        }
+        else {
+            subjects_arr = Event.getSubjects();
+        }
+
+        ArrayList<String> event_types = new ArrayList<>(Arrays.asList(event_types_arr));
+        ArrayList<String> subjects = new ArrayList<>(Arrays.asList(subjects_arr));
+        subjects.add("");
+
+        List<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+        result.add(event_types);
+        result.add(subjects);
+
+        return result;
+    }
+    
     @Override 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
@@ -52,24 +75,15 @@ public class EventServlet extends HttpServlet {
         if (request.getParameterMap().containsKey("school_id")) {
             Long school_id = Long.parseLong(request.getParameter("school_id"));
 
-            String[] event_types_arr = {};
+            Boolean filtering = false;
+            ArrayList<String> event_types = new ArrayList<String>();
+            ArrayList<String> subjects = new ArrayList<String>();
             if (request.getParameterMap().containsKey("event_type")) {
-                event_types_arr = request.getParameterValues("event_type");
+                filtering = true;
+                List<ArrayList<String>> filter_parameters = getFilterParameters(request);
+                event_types = filter_parameters.get(0);
+                subjects = filter_parameters.get(1);
             }
-            else {
-                event_types_arr = Event.getEventTypes();
-            }
-            ArrayList<String> event_types = new ArrayList<>(Arrays.asList(event_types_arr));
-
-            String[] subjects_arr = {};
-            if (request.getParameterMap().containsKey("subject")) {
-                subjects_arr = request.getParameterValues("subject");
-            }
-            else {
-                subjects_arr = Event.getSubjects();
-            }
-            ArrayList<String> subjects = new ArrayList<>(Arrays.asList(subjects_arr));
-            subjects.add("");
 
             Query<Entity> query = Query.newEntityQueryBuilder()
                                        .setKind("Event")
@@ -81,8 +95,9 @@ public class EventServlet extends HttpServlet {
             while (results.hasNext()) {
                 Entity entity = results.next();
 
-                if (!event_types.contains(entity.getString("event_type")) ||
-                    !subjects.contains(entity.getString("subject"))) {
+                if (filtering &&
+                    (!event_types.contains(entity.getString("event_type")) ||
+                    !subjects.contains(entity.getString("subject")))) {
                     continue;
                 }
 
