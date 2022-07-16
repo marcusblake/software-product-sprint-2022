@@ -137,7 +137,7 @@ public class EventServlet extends HttpServlet {
         TimestampValue event_time = TimestampValue.of(Timestamp.parseTimestamp((eventJsonAsMap.get("date"))));
         String event_type = eventJsonAsMap.get("type");
         String event_sub = eventJsonAsMap.get("subject");
-        if (event_type.equals("Social")){
+        if (event_type.equals("Social")) {
             event_sub = "";
         }
         Long event_school_L = Long.parseLong(eventJsonAsMap.get("school_id"));
