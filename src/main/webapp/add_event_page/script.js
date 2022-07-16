@@ -41,6 +41,23 @@ async function initMap(){
         draggable: true,
     });
 
+    const input = this.document.getElementById("place-input");
+    const searchBox = new google.maps.places.SearchBox(input);
+
+    google.maps.event.addListener(searchBox,'places_changed',function(){
+        var places = searchBox.getPlaces();
+        var bounds = new google.maps.LatLngBounds();
+        var i,place;
+        for(i=0; place=places[i]; i++){
+          bounds.extend(place.geometry.location);
+          marker.setPosition(place.geometry.location);
+          currentLatitude = marker.latLng.lat();
+          currentLongitude = marker.latLng.lng();
+        }
+        map.fitBounds(bounds);
+        map.setZoom(15);
+    });
+
     google.maps.event.addListener(marker, 'dragend', function(marker){
         var latLng = marker.latLng; 
         currentLatitude = latLng.lat();

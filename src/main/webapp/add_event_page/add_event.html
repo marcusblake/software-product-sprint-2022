@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Add Event</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlz0NQ1mc6_UU6OHExGKIrpnkJ5q9BqPs"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlz0NQ1mc6_UU6OHExGKIrpnkJ5q9BqPs&libraries=places"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="script.js"></script>
   </head>
   <body>
@@ -40,6 +41,12 @@
     
 
     <p>Click on the map to set the location of your event:</p>
+    <input
+        id="place-input"
+        class="controls"
+        type="text"
+        placeholder="Search Box"
+    />
     <div id="map"></div>
     
 
