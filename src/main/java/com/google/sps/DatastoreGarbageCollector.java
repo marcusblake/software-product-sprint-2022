@@ -53,9 +53,9 @@ public class DatastoreGarbageCollector {
     }, 0, 1, TimeUnit.HOURS);
   }
 
+  // https://stackoverflow.com/a/38412295
+  // Shut down ScheduledExecutorService
   public void stop() {
-    // https://stackoverflow.com/a/38412295
-    // Shut down ScheduledExecutorService
     ses.shutdown(); // Stop deleting more events
     try {
       // Wait a while for existing tasks to terminate
