@@ -27,6 +27,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 
 @WebServlet("/event")
 public class EventServlet extends HttpServlet {
@@ -106,18 +108,17 @@ public class EventServlet extends HttpServlet {
     }
 
     // Get the value entered in the form
-    Double event_Lat_D = Double.parseDouble(eventJsonAsMap.get("lat"));
-    Double event_Lng_D = Double.parseDouble(eventJsonAsMap.get("lng"));
-    String event_name = eventJsonAsMap.get("name");
-    String event_desc = eventJsonAsMap.get("description");
-    String event_loc = eventJsonAsMap.get("loc");
+    String event_lat = Jsoup.clean(eventJsonAsMap.get("lat"), Safelist.basic());
+    Double event_Lat_D = Double.parseDouble(event_lat);
+    String event_lng = Jsoup.clean(eventJsonAsMap.get("lng"), Safelist.basic());
+    Double event_Lng_D = Double.parseDouble(event_lng);
+    String event_name = Jsoup.clean(eventJsonAsMap.get("name"), Safelist.basic());
+    String event_desc = Jsoup.clean(eventJsonAsMap.get("description"), Safelist.basic());
+    String event_loc = Jsoup.clean(eventJsonAsMap.get("loc"), Safelist.basic());
     TimestampValue event_time =
         TimestampValue.of(Timestamp.parseTimestamp((eventJsonAsMap.get("date"))));
     String event_type = eventJsonAsMap.get("type");
     String event_sub = eventJsonAsMap.get("subject");
-    if (event_type.equals("social")) {
-      event_sub = "";
-    }
     Long event_school_L = Long.parseLong(eventJsonAsMap.get("school_id"));
 
     // Store to the Datastore

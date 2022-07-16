@@ -11,6 +11,7 @@ window.onload = function() {
     this.initMap();
     this.document.getElementById('back').setAttribute('onclick', `location.href = '../directory-page/directory.html?school_id=${school_id}'`);
     this.document.getElementById('form').setAttribute('action', `../directory-page/directory.html?school_id=${school_id}`);
+    this.document.getElementById('date').setAttribute('onclick',checkMin());
 }
 
 function getSchool(){
@@ -51,11 +52,11 @@ async function initMap(){
         for(i=0; place=places[i]; i++){
           bounds.extend(place.geometry.location);
           marker.setPosition(place.geometry.location);
-          currentLatitude = marker.latLng.lat();
-          currentLongitude = marker.latLng.lng();
         }
         map.fitBounds(bounds);
         map.setZoom(15);
+        currentLatitude = marker.getPosition().lat();
+        currentLongitude = marker.getPosition().lng();
     });
 
     google.maps.event.addListener(marker, 'dragend', function(marker){
@@ -92,7 +93,12 @@ function submitEvent(){
     var event_loc = document.getElementById("location_name").value;
     var event_date = new Date(document.getElementById("date").value).toISOString();
     var event_type = document.getElementById("event_type").value;
-    var event_sub = document.getElementById("subject").value;
+    if (event_type == "Social"){
+        var event_sub = "";
+    }
+    else{
+        var event_sub = document.getElementById("subject").value;
+    }
     var data = { 
         "name": event_name,
         "description": event_des,
