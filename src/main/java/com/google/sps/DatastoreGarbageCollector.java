@@ -19,8 +19,6 @@ public class DatastoreGarbageCollector {
   private ScheduledExecutorService ses;
 
   private static void deleteOldEvents() {
-    System.out.println("Deleting events that have occurred more than 1 day in the past");
-
     Instant now = Instant.now(); // current time
     Instant cutoff_time = now.minus(Duration.ofDays(1));
     Date cutoff_date = Date.from(cutoff_time);
@@ -38,7 +36,6 @@ public class DatastoreGarbageCollector {
       Long event_id = entity.getKey().getId();
       KeyFactory keyFactory = datastore.newKeyFactory().setKind("Event");
       datastore.delete(keyFactory.newKey(event_id));
-      System.out.println("Deleted old event with id " + event_id);
     }
   }
 
