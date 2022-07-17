@@ -13,7 +13,8 @@
 
       <h1 id="header"></h1>
 
-      <form action="" onsubmit="return eventTypeChecked();">
+      <form id="filter" action="directory.html" method="GET">
+        <input id="filter-school-id" type="hidden" name="school_id" value=""/>
         <table style="width:100%; text-align:left;">
           <tr>
             <th>Event type:</th>
@@ -21,29 +22,31 @@
           </tr>
           <tr style="vertical-align:top;">
             <td>
-              <input type="checkbox" id="study" name="study" value="study" onclick="changeSubjectsVisibility();">
-              <label for="study">Study</label>
+              <input type="radio" id="Study" name="event_type" value="Study" onclick="updateFilterState();">
+              <label for="Study">Study</label>
               <br>
-              <input type="checkbox" id="social" name="social" value="social">
-              <label for="social">Social</label>
+              <input type="radio" id="Social" name="event_type" value="Social" onclick="updateFilterState();">
+              <label for="Social">Social</label>
             </td>
             <td id="subject-options" style="display: none;">
-                <input type="checkbox" id="english" name="english" value="english">
-                <label for="english">English</label>
+                <input type="checkbox" id="English" name="subject" value="English">
+                <label for="English">English</label>
                 <br>
-                <input type="checkbox" id="history" name="history" value="history">
-                <label for="history">History</label>
+                <input type="checkbox" id="History" name="subject" value="History">
+                <label for="History">History</label>
                 <br>
-                <input type="checkbox" id="science" name="science" value="science">
-                <label for="science">Science</label>
+                <input type="checkbox" id="Science" name="subject" value="Science">
+                <label for="Science">Science</label>
                 <br>
-                <input type="checkbox" id="math" name="math" value="math">
-                <label for="math">Math</label>
+                <input type="checkbox" id="Math" name="subject" value="Math">
+                <label for="Math">Math</label>
             </td>
           </tr>
         </table>
         <br>
         <input type="submit" value="Filter"/>
+        &nbsp;
+        <button id="clear-filter" onclick="clearFilter();">Clear</button>
       </form>
       <br>
 
@@ -52,6 +55,7 @@
       <input type="radio" id="sort-distance" name="sort-by" onclick="resortEvents('distance')" value="distance" /> Distance
       <br><br>
 
+      <h3 id="no-events" style="display: none;"><br>There are no events yet. Add one by clicking "Add Event"!</h3>
       <ul id="event-list"></ul>
     </div>
   </body>

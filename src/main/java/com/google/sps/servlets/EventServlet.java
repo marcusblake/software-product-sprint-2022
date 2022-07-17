@@ -8,15 +8,23 @@ import com.google.cloud.datastore.FullEntity;
 import com.google.cloud.datastore.IncompleteKey;
 import com.google.cloud.datastore.KeyFactory;
 import com.google.cloud.datastore.LatLng;
+import com.google.cloud.datastore.ListValue;
 import com.google.cloud.datastore.Query;
 import com.google.cloud.datastore.QueryResults;
+import com.google.cloud.datastore.StringValue;
+import com.google.cloud.datastore.StructuredQuery.CompositeFilter;
+import com.google.cloud.datastore.StructuredQuery.Filter;
 import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
 import com.google.cloud.datastore.TimestampValue;
+import com.google.cloud.datastore.Value;
 import com.google.gson.Gson;
 import com.google.sps.data.Event;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,17 +49,33 @@ public class EventServlet extends HttpServlet {
         id, name, description, location_name, date, event_type, subject, position, school_id);
   }
 
+  private Query<Entity> getQueryFromFilterParameters(HttpServletRequest request) {
+    Long school_id = Long.parseLong(request.getParameter("school_id"));
+    Filter filter = PropertyFilter.eq("school_id", school_id);
+
+    if (request.getParameterMap().containsKey("event_type")) {
+      filter =
+          CompositeFilter.and(
+              filter, PropertyFilter.eq("event_type", request.getParameter("event_type")));
+    }
+
+    if (request.getParameterMap().containsKey("subject")) {
+      List<Value<String>> values =
+          Arrays.asList(request.getParameterValues("subject")).stream()
+              .map(StringValue::of)
+              .collect(Collectors.toList());
+      filter = CompositeFilter.and(filter, PropertyFilter.in("subject", ListValue.of(values)));
+    }
+
+    return Query.newEntityQueryBuilder().setKind("Event").setFilter(filter).build();
+  }
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
 
     if (request.getParameterMap().containsKey("school_id")) {
-      Long school_id = Long.parseLong(request.getParameter("school_id"));
-      Query<Entity> query =
-          Query.newEntityQueryBuilder()
-              .setKind("Event")
-              .setFilter(PropertyFilter.eq("school_id", school_id))
-              .build();
+      Query<Entity> query = getQueryFromFilterParameters(request);
       QueryResults<Entity> results = datastore.run(query);
 
       List<Event> events = new ArrayList<>();
@@ -66,8 +90,15 @@ public class EventServlet extends HttpServlet {
       response.setContentType("application/json;");
       response.getWriter().println(gson.toJson(events));
     } else {
-      // ToDo: Seokha Kang implement this method.
-      response.getWriter().println("You've called the get request");
+      Long event_id = Long.parseLong(request.getParameter("event_id"));
+      KeyFactory keyFactory = datastore.newKeyFactory().setKind("Event");
+      Entity entity = datastore.get(keyFactory.newKey(event_id));
+      Event event = createEventFromEntity(entity);
+
+      Gson gson = new Gson();
+      response.setContentType("application/json;");
+      response.getWriter().println(gson.toJson(event));
+      System.out.println(gson.toJson(event));
     }
   }
 
