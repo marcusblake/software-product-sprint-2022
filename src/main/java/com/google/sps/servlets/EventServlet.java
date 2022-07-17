@@ -18,19 +18,19 @@ import com.google.cloud.datastore.StructuredQuery.PropertyFilter;
 import com.google.cloud.datastore.TimestampValue;
 import com.google.cloud.datastore.Value;
 import com.google.gson.Gson;
-import com.google.sps.data.Event;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
+
+import com.google.sps.data.Event;
 
 @WebServlet("/event")
 public class EventServlet extends HttpServlet {
@@ -133,7 +133,9 @@ public class EventServlet extends HttpServlet {
             .build();
     datastore.put(eventEntity);
 
-    response.sendRedirect(request.getRequestURL().toString().split("event")[0]
-                          + "directory-page/directory.html?school_id=" + event_school_L);
+    response.sendRedirect(
+        request.getRequestURL().toString().split("event")[0]
+            + "directory-page/directory.html?school_id="
+            + event_school_L);
   }
 }
