@@ -10,7 +10,7 @@ window.onload = function() {
     this.getSchool();
     this.initMap();
     this.document.getElementById('back').setAttribute('onclick', `location.href = '../directory-page/directory.html?school_id=${school_id}'`);
-    this.setMin();
+    this.document.getElementById('date').setAttribute('onclick', this.setMin());
 }
 
 function getSchool(){
@@ -90,4 +90,5 @@ function setHiddenInputs() {
     document.getElementById('school_id').value = school_id;
     document.getElementById('lat').value = currentLatitude;
     document.getElementById('lng').value = currentLongitude;
+    document.getElementById('utc-date').value = new Date(document.getElementById('date').value).toISOString();
 }

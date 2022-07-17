@@ -80,7 +80,7 @@ public class EventServlet extends HttpServlet {
     String event_desc = Jsoup.clean(request.getParameter("description"), Safelist.basic());
     String event_loc = Jsoup.clean(request.getParameter("location_name"), Safelist.basic());
     TimestampValue event_time =
-        TimestampValue.of(Timestamp.parseTimestamp(request.getParameter("date")));
+        TimestampValue.of(Timestamp.parseTimestamp(request.getParameter("utc-date")));
     String event_type = request.getParameter("event_type");
     String event_sub = request.getParameter("subject");
     Long event_school_L = Long.parseLong(request.getParameter("school_id"));
