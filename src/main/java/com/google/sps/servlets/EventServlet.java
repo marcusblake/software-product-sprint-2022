@@ -98,7 +98,6 @@ public class EventServlet extends HttpServlet {
       Gson gson = new Gson();
       response.setContentType("application/json;");
       response.getWriter().println(gson.toJson(event));
-      System.out.println(gson.toJson(event));
     }
   }
 
