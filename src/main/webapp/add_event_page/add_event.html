@@ -12,7 +12,7 @@
     <div id="header">
       <h1>Add New Event</h1>
     </div>
-        <form id="form" method="POST">
+        <form id="form">
             <label for="name">Event Name:</label>
             <input type="text" id="name" name="name" required><br>
             <label for="description">Description:</label>
@@ -35,7 +35,7 @@
               <option value="Math">Math</option>
               <option value="Social">Social</option>
             </select><br>
-            <input type="submit" value="Submit" onclick="submitEvent()"><br>
+            <button type="button" onclick="submitEvent()">Submit</button><br>
         </form>
         <button id="back">Back</button>
     

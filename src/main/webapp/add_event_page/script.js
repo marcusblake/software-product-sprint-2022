@@ -10,7 +10,6 @@ window.onload = function() {
     this.getSchool();
     this.initMap();
     this.document.getElementById('back').setAttribute('onclick', `location.href = '../directory-page/directory.html?school_id=${school_id}'`);
-    this.document.getElementById('form').setAttribute('action', `../directory-page/directory.html?school_id=${school_id}`);
     this.document.getElementById('date').setAttribute('onclick',checkMin());
 }
 
@@ -97,7 +96,7 @@ function submitEvent(){
         var event_sub = "";
     }
     else{
-        var event_sub = document.getElementById("subject").value;
+        var event_sub = document.getElementById("subject2").value;
     }
     var data = { 
         "name": event_name,
@@ -115,6 +114,8 @@ function submitEvent(){
          method: "POST",
          body: JSON.stringify(data),
     });
+
+    window.location.href = `../directory-page/directory.html?school_id=${school_id}`;
 }
 
 
