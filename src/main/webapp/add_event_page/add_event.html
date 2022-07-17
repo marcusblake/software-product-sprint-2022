@@ -4,44 +4,49 @@
     <meta charset="UTF-8">
     <title>Add Event</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlz0NQ1mc6_UU6OHExGKIrpnkJ5q9BqPs"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlz0NQ1mc6_UU6OHExGKIrpnkJ5q9BqPs&libraries=places"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="script.js"></script>
   </head>
   <body>
     <div id="header">
       <h1>Add New Event</h1>
     </div>
-
-    <div id="form">
-        <form>
+        <form id="form">
             <label for="name">Event Name:</label>
-            <input type="text" id="name" name="name"><br>
+            <input type="text" id="name" name="name" required><br>
             <label for="description">Description:</label>
-            <textarea id="description" name="description"></textarea><br>
+            <textarea id="description" name="description" required></textarea><br>
             <label for="location_name">Building Name:</label>
-            <input type="text" id="location_name" name="location_name"><br>
+            <input type="text" id="location_name" name="location_name" required><br>
             <label for="date">Date and Time:</label>
-            <input type="datetime-local" id="date" name="date"><br>
+            <input type="datetime-local" id="date" name="date" required><br>
             <label>Event Type:</label>
-            <select name="event_type" id="event_type">
+            <select id="event_type" name="event_type" required onchange="checkType()">
               <option value="Study">Study</option>
               <option value="Social">Social</option>
             </select><br>
-            <!--To be changed later-->
-            <label>Subject:</label> 
-            <select name="subject" id="subject">
+
+            <label id="subject1">Subject:</label> 
+            <select name="subject" id="subject2">
               <option value="English">English</option>
               <option value="History">History</option>
               <option value="Science">Science</option>
               <option value="Math">Math</option>
               <option value="Social">Social</option>
             </select><br>
-            <input type="submit" value="Submit" onclick="submitEvent()"><br>
+            <button type="button" onclick="submitEvent()">Submit</button><br>
         </form>
         <button id="back">Back</button>
-    </div>
+    
 
     <p>Click on the map to set the location of your event:</p>
+    <input
+        id="place-input"
+        class="controls"
+        type="text"
+        placeholder="Search Box"
+    />
     <div id="map"></div>
     
 
