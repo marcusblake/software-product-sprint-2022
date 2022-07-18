@@ -45,7 +45,12 @@ public class ServerMain {
     server.start();
     System.out.println("Server started!");
 
+    // Create new thread to periodically delete old events.
+    DatastoreGarbageCollector garbageCollector = new DatastoreGarbageCollector();
+    garbageCollector.start();
+
     // Keep the main thread alive while the server is running.
     server.join();
+    garbageCollector.stop();
   }
 }

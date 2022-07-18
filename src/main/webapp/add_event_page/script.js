@@ -10,7 +10,7 @@ window.onload = function() {
     this.getSchool();
     this.initMap();
     this.document.getElementById('back').setAttribute('onclick', `location.href = '../directory-page/directory.html?school_id=${school_id}'`);
-    this.document.getElementById('date').setAttribute('onclick',checkMin());
+    this.document.getElementById('date').setAttribute('onclick', this.setMin());
 }
 
 function getSchool(){
@@ -76,7 +76,7 @@ function checkType(){
     }
 }
 
-function checkMin(){
+function setMin(){
     now = new Date();
     formatted_date = now.getFullYear() + '-' +
         String(now.getMonth() + 1).padStart(2, '0') + '-' +
@@ -86,38 +86,9 @@ function checkMin(){
     this.document.getElementById('date').setAttribute('min', formatted_date);
 }
 
-function submitEvent(){
-    var event_name = document.getElementById("name").value;
-    var event_des = document.getElementById("description").value;
-    var event_loc = document.getElementById("location_name").value;
-    var event_date = new Date(document.getElementById("date").value).toISOString();
-    var event_type = document.getElementById("event_type").value;
-    if (event_type == "Social"){
-        var event_sub = "";
-    }
-    else{
-        var event_sub = document.getElementById("subject2").value;
-    }
-    var data = { 
-        "name": event_name,
-        "description": event_des,
-        "loc": event_loc,
-        "date": event_date,
-        "type": event_type,
-        "subject": event_sub,
-        "lat": currentLatitude,
-        "lng": currentLongitude,
-        "school_id": school_id,
-    }
-    
-    fetch("/event",{
-         method: "POST",
-         body: JSON.stringify(data),
-    });
-
-    window.location.href = `../directory-page/directory.html?school_id=${school_id}`;
+function setHiddenInputs() {
+    document.getElementById('school_id').value = school_id;
+    document.getElementById('lat').value = currentLatitude;
+    document.getElementById('lng').value = currentLongitude;
+    document.getElementById('utc-date').value = new Date(document.getElementById('date').value).toISOString();
 }
-
-
-
- 

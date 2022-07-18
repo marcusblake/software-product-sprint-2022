@@ -12,6 +12,8 @@ window.onload = function() {
     this.getHeader();
     this.loadEvents();
     this.document.getElementById('add-event').setAttribute('onclick', `location.href = '../add_event_page/add_event.html?school_id=${globals.school_id}'`);
+    this.document.getElementById('filter-school-id').setAttribute('value', globals.school_id);
+    this.loadFilterState();
 }
 
 /** Get school ID from URL parameter. */
@@ -27,30 +29,43 @@ async function getHeader() {
     document.getElementById("header").innerHTML = `Happening in ${school_info.name}`;
 }
 
-/** Make subject options visible when "study" is checked. */
-function changeSubjectsVisibility() {
-    if (document.getElementById("study").checked) {
+/** Hides or unhides the subject options depending on if 'Study' is checked. */
+function updateFilterState() {
+    if (document.getElementById("Study").checked) {
         display = 'inline';
     }
     else {
         display = 'none';
+        subjects = document.querySelectorAll('input[name="subject"]');
+        subjects.forEach(subject => {
+            subject.checked = false;
+        })
     }
     document.getElementById("subject-header").style.display = display;
     document.getElementById("subject-options").style.display = display;
 }
 
-/** Make sure at least one event type checked when submitting the filter. */
-function eventTypeChecked() {
-    if (!document.getElementById("study").checked && !document.getElementById("social").checked) {
-        alert("Please select at least one event type.");
-        return false;
-    }
-    return true;
+/** Clears the filter. */
+function clearFilter() {
+    document.getElementById("Study").checked = false;
+    document.getElementById("Social").checked = false;
+    updateFilterState();
+}
+
+/** Make the filter state match the given URL parameters. */
+function loadFilterState() {
+    search_params = Array.from(new URLSearchParams(window.location.search));
+    search_params.forEach(param => {
+        if (param[0] != 'school_id') {
+            document.getElementById(param[1]).checked = true;
+        }
+    });
+    updateFilterState();
 }
 
 /** Fetch the events from the backend. */
 async function loadEvents() {
-    globals.events = await fetch(`/event?school_id=${globals.school_id}`).then(response => response.json());
+    globals.events = await fetch(`/event${window.location.search}`).then(response => response.json());
     resortEvents(document.querySelector('input[name="sort-by"]:checked').value);
     displayEvents();
 }
@@ -93,12 +108,15 @@ function compareDistance(event1, event2) {
 function getUserLocation() {
     // Need to promisify the geolocation request, https://stackoverflow.com/a/62594598
     return new Promise((resolve, reject) =>
-        navigator.geolocation.getCurrentPosition(resolve, reject)
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+            enableHighAccuracy: true
+          })
     );
 }
 
 /** Gets events and displays them on the page. */
 function displayEvents() {
+    document.getElementById('no-events').style.display = (globals.events.length == 0) ? 'inline' : 'none';
     const eventListElement = document.getElementById('event-list');
     eventListElement.innerHTML = '';
     globals.events.forEach((event) => {
