@@ -14,6 +14,7 @@ window.onload = function() {
     this.document.getElementById('add-event').setAttribute('onclick', `location.href = '../add_event_page/add_event.html?school_id=${globals.school_id}'`);
     this.document.getElementById('filter-school-id').setAttribute('value', globals.school_id);
     this.loadFilterState();
+    this.loadHomeBtn();
 }
 
 /** Get school ID from URL parameter. */

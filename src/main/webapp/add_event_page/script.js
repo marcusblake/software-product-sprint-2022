@@ -11,6 +11,7 @@ window.onload = function() {
     this.initMap();
     this.document.getElementById('back').setAttribute('onclick', `location.href = '../directory-page/directory.html?school_id=${school_id}'`);
     this.document.getElementById('date').setAttribute('onclick', this.setMin());
+    this.loadHomeBtn();
 }
 
 function getSchool(){

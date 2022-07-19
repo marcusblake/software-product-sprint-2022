@@ -1,6 +1,7 @@
 window.onload = function() {
     this.getEventId();
     this.loadEventInfo();
+    this.loadHomeBtn();
 }
 
 function createMap(_lat, _lng) {
