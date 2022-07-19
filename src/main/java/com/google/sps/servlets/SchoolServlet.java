@@ -1,4 +1,3 @@
-
 package com.google.sps.servlets;
 
 import com.google.cloud.datastore.Datastore;
