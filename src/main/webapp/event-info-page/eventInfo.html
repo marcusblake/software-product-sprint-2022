@@ -4,20 +4,22 @@
     <meta charset="UTF-8" />
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlz0NQ1mc6_UU6OHExGKIrpnkJ5q9BqPs"></script>
     <script src="script.js"></script>
+    <script src="../common.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Event Info></title>
   </head>
   <body>
+    <p id="homebtn"></p>
     <h2>Event Information</h2>
-    <span>Name:  </span> <span id="name">Cycle bun</span></br>
+    <span>Name:  </span> <span id="name"></span></br>
     </br>
-    <span>Description:  </span><span id="description">Experience the burn of cycling drills! Take on cardiovascular conditioning with an interval-driven workout.</span></br>
+    <span>Description:  </span><span id="description"></span></br>
     </br>
-    <span>Building Name:  </span><span id="location">Students Recreation Center</span></br>
+    <span>Building Name:  </span><span id="location"></span></br>
     </br>
-    <span>Date:  </span><span id="date">June 22 - August 24</span></br>
+    <span>Date:  </span><span id="date"></span></br>
     </br>
-    <body onload="createMap();">
-        <div id="map"></div>
+    <div id="map"></div><br>
+    <button id="backbtn">Back</button>
   </body>
 </html>

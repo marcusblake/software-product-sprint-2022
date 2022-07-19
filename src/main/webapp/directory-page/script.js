@@ -14,6 +14,7 @@ window.onload = function() {
     this.document.getElementById('add-event').setAttribute('onclick', `location.href = '../add_event_page/add_event.html?school_id=${globals.school_id}'`);
     this.document.getElementById('filter-school-id').setAttribute('value', globals.school_id);
     this.loadFilterState();
+    this.loadHomeBtn();
 }
 
 /** Get school ID from URL parameter. */
@@ -108,7 +109,9 @@ function compareDistance(event1, event2) {
 function getUserLocation() {
     // Need to promisify the geolocation request, https://stackoverflow.com/a/62594598
     return new Promise((resolve, reject) =>
-        navigator.geolocation.getCurrentPosition(resolve, reject)
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+            enableHighAccuracy: true
+          })
     );
 }
 
