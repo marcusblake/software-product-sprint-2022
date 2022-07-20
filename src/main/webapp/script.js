@@ -33,5 +33,6 @@ function createSchoolElement(school) {
   const schoolElement = document.createElement('a');
   schoolElement.innerText = school.name;
   schoolElement.setAttribute("href", `/directory-page/directory.html?school_id=${school.id}`)
+  schoolElement.style.textAlign = 'left';
   return schoolElement;
 }
