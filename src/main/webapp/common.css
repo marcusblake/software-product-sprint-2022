@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+html * {
+  font-family: Patrick Hand;
+}
+
+body {
+  background-color: white;
+}
+
+#content {
+  margin-left: auto;
+  margin-right: auto;
+  width: 650px;
+  padding-top: 20px;
+  padding-bottom: 60px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.button {
+  background-color: #04AA6D;
+  border: 2px solid #04AA6D;
+  border-radius: 3px;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+  
+.button:hover {
+  background-color: white;
+  color: black;
+}
