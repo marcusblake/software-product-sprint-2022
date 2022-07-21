@@ -3,31 +3,33 @@
   <head>
     <meta charset="UTF-8">
     <title>Add Event</title>
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../common.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlz0NQ1mc6_UU6OHExGKIrpnkJ5q9BqPs&libraries=places"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="script.js"></script>
     <script src="../common.js"></script>
   </head>
-  <body>
+  <body id="content">
     <p id="homebtn"></p>
     <div id="header">
       <h1>Add New Event</h1>
     </div>
         <form id="form" action="/event" method="POST" onsubmit="setHiddenInputs();">
             <label for="name">Event Name:</label>
-            <input type="text" id="name" name="name" required><br>
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" required></textarea><br>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description" required style="width:60%; height:60px;"></textarea><br><br>
             <label for="location_name">Building Name:</label>
-            <input type="text" id="location_name" name="location_name" required><br>
+            <input type="text" id="location_name" name="location_name" required><br><br>
             <label for="date">Date and Time:</label>
-            <input type="datetime-local" id="date" name="date" required><br>
+            <input type="datetime-local" id="date" name="date" required><br><br>
             <label>Event Type:</label>
             <select id="event_type" name="event_type" required onchange="checkType()">
               <option value="Study">Study</option>
               <option value="Social">Social</option>
-            </select><br>
+            </select> &nbsp; &nbsp;
 
             <label id="subject1">Subject:</label> 
             <select name="subject" id="subject2">
@@ -35,19 +37,18 @@
               <option value="History">History</option>
               <option value="Science">Science</option>
               <option value="Math">Math</option>
-              <option value="Social">Social</option>
-            </select><br>
+            </select><br><br>
             <input type="hidden" name="school_id" id="school_id">
             <input type="hidden" name="utc-date" id="utc-date">
             <input type="hidden" name="lat" id="lat">
             <input type="hidden" name="lng" id="lng">
-            <input type="submit"><br>
-        </form>
-        <button id="back">Back</button>
+            <input type="submit" class="button"> &nbsp;
+            <button type="button" id="back" class="button">Cancel</button>
+        </form><br>
     
-
+    
     <p>Click on the map to set the location of your event:</p>
-    <input
+    <input style="width:50%;"
         id="place-input"
         class="controls"
         type="text"

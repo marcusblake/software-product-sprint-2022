@@ -3,15 +3,21 @@
   <head>
     <meta charset="UTF-8">
     <title>Directory</title>
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../common.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlz0NQ1mc6_UU6OHExGKIrpnkJ5q9BqPs&libraries=geometry"></script>
     <script src="script.js"></script>
     <script src="../common.js"></script>
   </head>
   <body>
     <div id="content">
-      <span id="homebtn"></span>
-      <span align="right"><button id="add-event">Add Event</button></span>
+      <p style="text-align:left;">
+        <span id="homebtn"></span>
+        <span style="float:right;">
+          <button id="add-event" class="button">Add Event</button>
+        </span>
+      </p>
 
       <h1 id="header"></h1>
 
@@ -46,9 +52,9 @@
           </tr>
         </table>
         <br>
-        <input type="submit" value="Filter"/>
+        <input type="submit" value="Filter" class="button"/>
         &nbsp;
-        <button id="clear-filter" onclick="clearFilter();">Clear</button>
+        <button id="clear-filter" onclick="clearFilter();" class="button">Clear</button>
       </form>
       <br>
 
