@@ -112,7 +112,7 @@ public class EventServlet extends HttpServlet {
     TimestampValue event_time =
         TimestampValue.of(Timestamp.parseTimestamp(request.getParameter("utc-date")));
     String event_type = request.getParameter("event_type");
-    String event_sub = request.getParameter("subject");
+    String event_sub = (event_type.equals("Social")) ? "" : request.getParameter("subject");
     Long event_school_L = Long.parseLong(request.getParameter("school_id"));
 
     // Store to the Datastore
